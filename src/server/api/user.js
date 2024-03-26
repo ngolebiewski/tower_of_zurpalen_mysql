@@ -5,15 +5,15 @@ const verify = require('../util')
 
 // GET /api/user 
 // GET All users -> Would need to be admin to access
-router.get("/", async (req, res, next) => {
-  try {
-    const allUsers = await prisma.user.findMany()
-    res.send(allUsers);
-  } catch (error) {
-    console.log(error);
-  }
-  next()
-}); 
+// router.get("/", async (req, res, next) => {
+//   try {
+//     const allUsers = await prisma.user.findMany()
+//     res.send(allUsers);
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   next()
+// }); 
 
 // GET /api/user/me
 // GET All users -> Would need to be admin to access
