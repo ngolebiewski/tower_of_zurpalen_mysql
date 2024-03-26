@@ -14,7 +14,7 @@ const verify = require('../util')
 //   }
 //   next()
 // }); 
-// small update
+// small update +2
 
 // GET /api/user/me
 // GET All users -> Would need to be admin to access
