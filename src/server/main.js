@@ -6,7 +6,7 @@ const app = express();
 const mysql = require('mysql2');
 
 
-// Database connection configuration
+// Database connection configuration - thanks chatGPT
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
