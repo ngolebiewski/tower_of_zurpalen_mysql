@@ -1,19 +1,34 @@
 const prisma = require('../../src/server/client');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
+const argon2 = require('argon2');
 const saltRounds = 7;
 
 
-const hasher = async (password, salt) => {
-    const data = await bcrypt.hash(password, salt)
-    return data;
-}
+// const hasher = async (password, salt) => {
+//     const data = await bcrypt.hash(password, salt)
+//     return data;
+// }
 
+
+const hasher = async (password) => {
+    try {
+        // Hash the password using Argon2 with the provided salt
+        const hash = await argon2.hash(password);
+
+        // Return the hashed password
+        return hash;
+    } catch (error) {
+        // Handle any errors that occur during hashing
+        console.error("Error hashing password:", error);
+        throw error; // Rethrow the error to be handled by the caller
+    }
+};
 const createUser = async () => {
     console.log('createUser');
 
-    const hashedPassword = await hasher("password", saltRounds);
-    const hashedPizza = await hasher("pizza", saltRounds);
-    const hashedjoe = await hasher("joe", saltRounds);
+    const hashedPassword = await hasher("password");
+    const hashedPizza = await hasher("pizza");
+    const hashedjoe = await hasher("joe");
 
     const users =[
         {

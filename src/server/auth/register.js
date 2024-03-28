@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const prisma = require('../client');
 // const bcrypt = require('bcrypt');
+const argon2 = require('argon2');
 const saltRounds = 7;
 const jwt = require('jsonwebtoken');
 
@@ -11,7 +12,8 @@ router.post('/', async (req, res) => {
 
   const { username, password, email } = req.body;
   try {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await argon2.hash(password)
 
     const newUser = await prisma.user.create({
       data: {

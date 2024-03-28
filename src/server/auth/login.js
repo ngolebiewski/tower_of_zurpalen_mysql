@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const prisma = require('../client');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
+const argon2 = require('argon2');
 const saltRounds = 7;
 const jwt = require('jsonwebtoken');
 
@@ -21,7 +22,8 @@ router.post('/', async (req, res) => {
 
     if (!user) return res.status(401).send({ message: "User not found"});
     
-    const isPasswordVerified = await bcrypt.compare(password, user.password);
+    // const isPasswordVerified = await bcrypt.compare(password, user.password);
+    const isPasswordVerified = await argon2.verify(user.password, password);
 
     if (isPasswordVerified){
     const token = jwt.sign({ id: user.id, username }, process.env.JWT_SECRET, { expiresIn: '2w', });
